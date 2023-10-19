@@ -42,7 +42,7 @@ Some features detected in data head are not relevant for the purpose of this ana
 and they also contain NuN values. So for that reasons the follow feautures are going to be deleted: image, 
 thumbnail, artist, compilation, expantion, publisher
 
-# Drop columns that are not relevant for the analyse
+Drop columns that are not relevant for the analyse
 df.drop(['image', 'thumbnail', 'artist', 'compilation', 'designer', 'expansion', 'family', 'publisher'], axis=1, inplace=True)
 
 Checkinh the type of data we have in this dataset
@@ -52,7 +52,7 @@ df.dtypes.value_counts()
 
 The dtype shows four features are object: ‘description’, ‘name’, ‘category’ and 'mechanic'. It is more appropriate convert them from an object to a category
 
-# Convert object type for categorical features
+Convert object type for categorical features
 df['description'] = df['description'].astype('category')
 df['name'] = df['name'].astype('category')
 df['category'] = df['category'].astype('category')
@@ -62,87 +62,87 @@ df['mechanic'] = df['mechanic'].astype('category')
 
 I am going to check the mising values in this dataset, once it can cause problem in the analyse, such a biased result, incorrect statistial inferences and error in machine learning models.
 
-# Check missing values
+Check missing values
 df.isnull().sum()
 
 The features 'category' and 'mechanic' have missing values, both are categorical variables 
 
-# Find rows with NaN values
+Find rows with NaN values
 rows_null_values = df[df.isnull().any(axis=1)]
 
-# Display rows with NaN values
+Display rows with NaN values
 print(rows_null_values)
 
 After analyse the rows with NaN values I decide to keep them and classify these line as special labels. Once the other features from the same line have important data for my analyse
 
-# Specify the special label for NaN values
+Specify the special label for NaN values
 special_label = 'Special_Label'  # You can choose any label you prefer
 special_label1 = 'Special_Label1'
 
-# Add the special label as a new category
+Add the special label as a new category
 df['category'] = df['category'].cat.add_categories(special_label)
 df['mechanic'] = df['mechanic'].cat.add_categories(special_label1)
 
-# Replace NaN values with the special label
+Replace NaN values with the special label
 df['category'].fillna(special_label, inplace=True)
 df['mechanic'].fillna(special_label1, inplace=True)
 
-# Display the updated DataFrame
+Display the updated DataFrame
 print(df)
 
-# Check missing values
+Check missing values
 df.isnull().sum()
 
-# Part 1	
+### Part 1	
 
 #### a) What are the top 5 “average rated” games?  
 
 The dataset will be sorted in a descending order to visualize the Top 5 average games
 
-#Sort the DataFrame by 'average_rating' in descending order
+Sort the DataFrame by 'average_rating' in descending order
 top_rated_games = df.sort_values(by='average_rating', ascending=False)
 
 The data is displayed in descending order accordlying with average rating
 
-# Display the Top 5 games 
+Display the Top 5 games 
 top_5_games = top_rated_games.head(5)
 print(top_5_games[['name', 'average_rating']])
 
 For visualization a bar plot graphyc was chosen to show the top 5 average rated games once it can represent in a simply and clear way what is requested
 
-# Making a Bar Plot
+Making a Bar Plot
 
 #Sample data 
 name = ['Small World Designer Edition', 'Kingdom Death: Monster', 'Terra Mystica: Big Box', 
         'Last Chance for Victory', 'The Greatest Day: Sword, Juno, and Gold Beaches']
 average_rating = [9.00392, 8.93184, 8.84862, 8.84603, 8.83081]
 
-# Define a color palette 
+Define a color palette 
 color_palette = sns.color_palette('Paired')
 
-# Create a bar plot using the color palette
+Create a bar plot using the color palette
 plt.figure(figsize=(10, 5))
 bars = plt.barh(name, average_rating, color=color_palette)
 
-# Adjust font size and style
+Adjust font size and style
 plt.xlabel('Average Rating', fontsize=12, fontweight='normal')  
 plt.ylabel('Games', fontsize=12, fontweight='normal')  
 plt.title('TOP 5 AVERAGE RATED GAMES', fontsize=14, fontweight='bold')  
 
-#Adjust figure area, add grid and sort highest rating at the top
+Adjust figure area, add grid and sort highest rating at the top
 plt.xlim(8.8, 9.1)  
 plt.grid(axis='x', linestyle='--', alpha=0.7)
 plt.gca().invert_yaxis()  
 
-# Remove y-axis labels
+Remove y-axis labels
 plt.yticks([])
 
-# Create a legend 
+Create a legend 
 legend_handles = [plt.Rectangle((0,0),1,1, color=color_palette[i], ec="k", lw=0.5, label=name) for i, name in enumerate(name)]
 legend = plt.legend(handles=legend_handles, loc='lower right', title='Games', fontsize=10, frameon=True, facecolor='white')
 legend.set_title('Games', prop={'size': 12, 'weight': 'bold'})
 
-# Customize the figure border and decrease the linewidth
+Customize the figure border and decrease the linewidth
 for spine in plt.gca().spines.values():
     spine.set_linewidth(0.5)      
 
@@ -185,7 +185,7 @@ Font type: using Arial as the font in your graph is for prioritizes readability 
 
 For verify is there is any correlation between this two variables I am going to check the result of correlation and plot a graphyc that express the result
 
-# Check correlation between users_rated and max_play_time
+Check correlation between users_rated and max_play_time
 correlation = df['users_rated'].corr(df['max_playtime'])
 print(correlation)
 
@@ -193,18 +193,18 @@ The result od the correlation -0.0043 implies that there is a slight tendency fo
 
 This tendency is very weak, it means these variables are essentially independent of each, don't have capacity to predicte each other. 
 
-# Checking correlation between the variables in a Scatterplot
+Checking correlation between the variables in a Scatterplot
 
-# Add grid, Adjust the marker size
+Add grid, Adjust the marker size
 sns.set_style("whitegrid")
 sns.relplot(x='users_rated', y='max_playtime', data=df, s=90, color= 'gray', height=4, aspect=2)  
 
-# Adjust font size and style
+Adjust font size and style
 plt.xlabel('Users Rated', fontsize=12, fontweight='normal', fontname='Arial')  
 plt.ylabel('Max Playtime', fontsize=12, fontweight='normal', fontname='Arial')  
 plt.title('CORRELATION BETWEEN USERS RATED X MAX PLAYTIME', fontsize=14, fontweight='bold', fontname='Arial')  
 
-# Add a border around the figure
+Add a border around the figure
 for spine in plt.gca().spines.values():
     spine.set_linewidth(0.5)
     spine.set_color('black')  
@@ -241,52 +241,52 @@ Font type: using Arial as the font in your graph is for prioritizes readability 
 
 #### c) What is the distribution of game categories?
 
-#Show the category in this dataset
+Show the category in this dataset
 df.category
 
-# Assuming 'category' is the column containing game categories
+Assuming 'category' is the column containing game categories
 unique_categories_count = df['category'].nunique()
 
 print(f'Total number of unique categories: {unique_categories_count}')
 
 
-# Get unique names within the 'category' column
+Get unique names within the 'category' column
 unique_names = df['category'].unique()
 
-# Print all the unique names in the 'category' column
+Print all the unique names in the 'category' column
 for name in unique_names:
 print(name)
 
-# Group the DataFrame by the 'category' column and count the occurrences
+Group the DataFrame by the 'category' column and count the occurrences
 name_counts = df['category'].value_counts().reset_index()
 
-# Rename the columns for clarity
+Rename the columns for clarity
 name_counts.columns = ['category', 'Count']
 
-# Display the table
+Display the table
 print(name_counts)
 
-# Group the DataFrame by the 'category' column and count the occurrences
+Group the DataFrame by the 'category' column and count the occurrences
 name_counts = df['category'].value_counts().reset_index()
 
-# Rename the columns for clarity
+Rename the columns for clarity
 name_counts.columns = ['category', 'Count']
 
-# Sort the table by 'Count' in descending order
+Sort the table by 'Count' in descending order
 name_counts = name_counts.sort_values(by='Count', ascending=False)
 
-# Display the top 10 names and their counts
+Display the top 10 names and their counts
 top_10_names = name_counts.head(20)
 print(top_10_names)
 
 In this step the Treeplot will be created to show the games categories
 
-#Create a Treeplot to represent the game categories
+Create a Treeplot to represent the game categories
 
-# Choose an accessible color palette
+Choose an accessible color palette
 colors = px.colors.qualitative.Set3
 
-# Create a Treemap with Plotly Express
+Create a Treemap with Plotly Express
 fig = px.treemap(top_10_names, path=['category'], values='Count', color_discrete_sequence=colors)
 
 # Customize the title 
