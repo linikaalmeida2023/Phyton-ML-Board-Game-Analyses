@@ -606,6 +606,12 @@ Text Position and Font Size: rotated the x-axis labels to prevent overlap.
 Grid: included grid lines in this plot, help viewers gauge values more accurately. 
 
 ### References
+“Choosing Color Palettes — Seaborn 0.9.0 Documentation.” Pydata.org, 2013, seaborn.pydata.org/tutorial/color_palettes.html.
+
+Mckinney, Wes. Python for Data Analysis : Data Wrangling with Pandas, NumPy, and IPython, 2017.
+
+VanderPlas, Jake. “Python Data Science Handbook | Python Data Science Handbook.” Github.io, 2019, jakevdp.github.io/PythonDataScienceHandbook/.
+
 
 
 
