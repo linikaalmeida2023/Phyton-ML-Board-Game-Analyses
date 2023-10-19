@@ -1,6 +1,6 @@
-# Description: This project is part of the HDIP Data Analytics course for the module of Data Visualization Techniques and implements a analyse based on a Board Game dataset.
+### Description: This project is part of the HDIP Data Analytics course for the module of Data Visualization Techniques and implements a analyse based on a Board Game dataset.
 
-### Importing Libraries
+#### Importing Libraries
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -16,7 +16,7 @@ import scipy.stats as stats
 #Open dataset
 df = pd.read_csv('board_games.csv')
 
-### Data Description
+#### Data Description
 
 You have been retained by a retail company to analyse a dataset based on board games. This analysis will help determine the sales strategy for the company in their upcoming Winter season.   
   
@@ -24,7 +24,7 @@ The companies CTO also requires you to rationalize all the decisions that you ha
   
 This rationalization MUST include your visualization design decisions, how you have engineered the data, feature selection and any other information that you deem relevant.   
 
-### Exploratory Data Analyse
+#### Exploratory Data Analyse
 
 In the EDA I will do some assumptions, do a comprehension of the dataset and check missing values
 
