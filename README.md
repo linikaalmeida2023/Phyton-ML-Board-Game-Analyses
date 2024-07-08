@@ -1,4 +1,4 @@
-### Description: This project is part of the HDIP Data Analytics course for the module of Data Visualization Techniques and implements a analyse based on a Board Game dataset.
+## This project is part of the HDIP Data Analytics course for the module of Data Visualization Techniques and implements a analyse based on a Board Game dataset.
 
 
 
